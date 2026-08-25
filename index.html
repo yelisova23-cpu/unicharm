@@ -1,160 +1,207 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiZeL - Японская система для кошачьего туалета</title>
-    <!-- Подключаем стили и скрипты умных подсказок DaData -->
-    <link href="https://jsdelivr.net" rel="stylesheet" />
-    <script src="https://cloudflare.com"></script>
-    <script src="https://jsdelivr.net"></script>
-    <!-- Подключаем библиотеку маски телефона -->
-    <script src="https://unpkg.com"></script>
-    <style>
-        :root {
-            --green-dark: #1f6b3a;
-            --green-main: #2e9e4f;
-            --green-light: #e6f2ea;
-            --green-accent: #4cb66b;
-            --white: #ffffff;
-            --gray-text: #5a6a63;
-            --dark-text: #1c2b22;
-            --shadow: 0 10px 30px rgba(31, 107, 58, 0.12);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--white);
-            color: var(--dark-text);
-            line-height: 1.6;
-        }
-        a { text-decoration: none; color: inherit; }
-        img { max-width: 100%; display: block; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 20px 0; border-bottom: 1px solid var(--green-light); position: sticky; top: 0; z-index: 100; }
-        .header-box { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 28px; font-weight: 800; color: var(--green-dark); letter-spacing: 1px; }
-        .logo span { color: var(--green-accent); }
-        .hero { padding: 60px 0; background: linear-gradient(135deg, var(--white) 0%, var(--green-light) 100%); }
-        .hero-box { display: flex; align-items: center; gap: 40px; }
-        .hero-text { flex: 1; }
-        .hero-text h1 { font-size: 42px; font-weight: 800; color: var(--dark-text); margin-bottom: 20px; line-height: 1.2; }
-        .hero-text p { font-size: 18px; color: var(--gray-text); margin-bottom: 30px; }
-        .hero-img { flex: 1; display: flex; justify-content: center; }
-        .hero-img img { border-radius: 20px; box-shadow: var(--shadow); max-height: 450px; object-fit: cover; }
-        .btn { display: inline-block; background: var(--green-dark); color: var(--white); padding: 15px 35px; border-radius: 30px; font-weight: 700; font-size: 16px; transition: all 0.3s; border: none; cursor: pointer; text-align: center; }
-        .btn:hover { background: var(--green-main); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(31, 107, 58, 0.3); }
-        .calc-section { padding: 80px 0; background: var(--white); }
-        .section-title { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 15px; color: var(--green-dark); }
-        .section-subtitle { text-align: center; color: var(--gray-text); margin-bottom: 50px; font-size: 16px; }
-        .calc-wrapper { max-width: 800px; margin: 0 auto; background: var(--white); border-radius: 24px; padding: 40px; box-shadow: var(--shadow); border: 1px solid var(--green-light); }
-        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
-        @media (max-width: 600px) { .grid-inputs { grid-template-columns: 1fr; } .hero-box { flex-direction: column; text-align: center; } }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: 700; margin-bottom: 10px; color: var(--dark-text); font-size: 15px; }
-        .form-group input, .form-group select { width: 100%; padding: 14px; border: 2px solid #e0e6e3; border-radius: 12px; font-size: 16px; color: var(--dark-text); transition: all 0.3s; background: #fcfdfe; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--green-main); outline: none; background: var(--white); box-shadow: 0 0 0 4px rgba(46, 158, 79, 0.1); }
-        .results-box { background: var(--green-light); border-radius: 16px; padding: 25px; margin-bottom: 35px; border: 1px dashed var(--green-accent); }
-        .result-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 16px; color: var(--gray-text); }
-        .result-row:last-child { margin-bottom: 0; padding-top: 12px; border-top: 1px solid rgba(31, 107, 58, 0.1); }
-        .result-row.total { font-size: 20px; font-weight: 800; color: var(--green-dark); }
-        .order-title { font-size: 24px; font-weight: 800; margin: 40px 0 20px; color: var(--green-dark); border-top: 2px solid var(--green-light); padding-top: 30px; text-align: center; }
-        .btn-pay { width: 100%; margin-top: 10px; }
-        .yookassa-logo { text-align: center; margin-top: 15px; font-size: 13px; color: var(--gray-text); display: flex; align-items: center; justify-content: center; gap: 5px; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiZeL - Японская система для кошачьего туалета</title>
+    <link href="https://jsdelivr.net" rel="stylesheet" />
+    <script src="https://cloudflare.com"></script>
+    <script src="https://jsdelivr.net"></script>
+    <script src="https://unpkg.com"></script>
+    <style>
+        :root {
+            --green-dark: #1f6b3a;
+            --green-main: #2e9e4f;
+            --green-light: #e6f2ea;
+            --green-accent: #4cb66b;
+            --white: #ffffff;
+            --gray-text: #5a6a63;
+            --dark-text: #1c2b22;
+            --shadow: 0 10px 30px rgba(31, 107, 58, 0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; border-bottom: 1px solid var(--green-light); position: sticky; top: 0; z-index: 100; }
+        .header-box { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 28px; font-weight: 800; color: var(--green-dark); letter-spacing: 1px; }
+        .logo span { color: var(--green-accent); }
+        .hero { padding: 60px 0; background: linear-gradient(135deg, var(--white) 0%, var(--green-light) 100%); }
+        .hero-box { display: flex; align-items: center; gap: 40px; }
+        .hero-text { flex: 1; }
+        .hero-text h1 { font-size: 42px; font-weight: 800; color: var(--dark-text); margin-bottom: 20px; line-height: 1.2; }
+        .hero-text p { font-size: 18px; color: var(--gray-text); margin-bottom: 30px; }
+        .hero-img { flex: 1; display: flex; justify-content: center; }
+        .hero-img img { border-radius: 20px; box-shadow: var(--shadow); max-height: 450px; object-fit: cover; }
+        .btn { display: inline-block; background: var(--green-dark); color: var(--white); padding: 15px 35px; border-radius: 30px; font-weight: 700; font-size: 16px; transition: all 0.3s; border: none; cursor: pointer; text-align: center; }
+        .btn:hover { background: var(--green-main); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(31, 107, 58, 0.3); }
+        .calc-section { padding: 80px 0; background: var(--white); }
+        .section-title { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 15px; color: var(--green-dark); }
+        .section-subtitle { text-align: center; color: var(--gray-text); margin-bottom: 50px; font-size: 16px; }
+        .calc-wrapper { max-width: 800px; margin: 0 auto; background: var(--white); border-radius: 24px; padding: 40px; box-shadow: var(--shadow); border: 1px solid var(--green-light); }
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
+        @media (max-width: 600px) { .grid-inputs { grid-template-columns: 1fr; } .hero-box { flex-direction: column; text-align: center; } }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 10px; color: var(--dark-text); font-size: 15px; }
+        .form-group input, .form-group select { width: 100%; padding: 14px; border: 2px solid #e0e6e3; border-radius: 12px; font-size: 16px; color: var(--dark-text); transition: all 0.3s; background: #fcfdfe; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--green-main); outline: none; background: var(--white); box-shadow: 0 0 0 4px rgba(46, 158, 79, 0.1); }
+        .results-box { background: var(--green-light); border-radius: 16px; padding: 25px; margin-bottom: 35px; border: 1px dashed var(--green-accent); }
+        .result-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 16px; color: var(--gray-text); }
+        .result-row:last-child { margin-bottom: 0; padding-top: 12px; border-top: 1px solid rgba(31, 107, 58, 0.1); }
+        .result-row.total { font-size: 20px; font-weight: 800; color: var(--green-dark); }
+        .order-title { font-size: 24px; font-weight: 800; margin: 40px 0 20px; color: var(--green-dark); border-top: 2px solid var(--green-light); padding-top: 30px; text-align: center; }
+        .btn-pay { width: 100%; margin-top: 10px; }
+        .yookassa-logo { text-align: center; margin-top: 15px; font-size: 13px; color: var(--gray-text); display: flex; align-items: center; justify-content: center; gap: 5px; }
+    </style>
 </head>
 <body>
-
-    <header>
-        <div class="container header-box">
-            <div class="logo">WiZeL<span>'</span></div>
-            <a href="#calculator" class="btn" style="padding: 10px 25px; font-size: 14px;">Калькулятор</a>
-        </div>
-    </header>
-
+    <header>
+        <div class="container header-box">
+            <div class="logo">WiZeL<span>'</span></div>
+            <a href="#calculator" class="btn" style="padding: 10px 25px; font-size: 14px;">Калькулятор</a>
+        </div>
+    </header>
     <section class="hero">
-        <div class="container hero-box">
-            <div class="hero-text">
-                <h1>Умная японская система для кошачьего туалета</h1>
-                <p>Идеальная чистота, абсолютное отсутствие запаха и супер-экономичный расход. Рассчитайте индивидуальный набор для вашего питомца прямо сейчас!</p>
-                <a href="#calculator" class="btn">Рассчитать расход</a>
-            </div>
-            <div class="hero-img">
-                <img src="https://unsplash.com" alt="Счастливый кот WiZeL">
-            </div>
-        </div>
-    </section>
-
-    <section id="calculator" class="calc-section">
-        <div class="container">
-            <h2 class="section-title">Индивидуальный калькулятор WiZeL</h2>
-            <p class="section-subtitle">Заполните параметры, чтобы узнать точный расход премиум-пелёнок и гранул Unicharm</p>
-           
-            <div class="calc-wrapper">
-                <div class="grid-inputs">
-                    <div class="form-group">
-                        <label for="cats">Количество котиков в доме:</label>
-                        <select id="cats" onchange="calculateTariff()">
-                            <option value="1">1 котик</option>
-                            <option value="2">2 котика</option>
-                            <option value="3">3 котика и более</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="weight">Вес питомца (средний):</label>
-                        <select id="weight" onchange="calculateTariff()">
-                            <option value="light">До 4 кг</option>
-                            <option value="normal">От 4 до 8 кг</option>
-                            <option value="heavy">Более 8 кг</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="results-box">
-                    <div class="result-row">
-                        <span>Рекомендованный объем гранул (на 2 мес):</span>
-                        <span id="res-granules">2 литра</span>
-                    </div>
-                    <div class="result-row">
-                        <span>Расход сменных пелёнок:</span>
-                        <span id="res-pelents">1 пелёнка в неделю</span>
-                    </div>
-                    <div class="result-row total">
-                        <span>Итоговая стоимость комплекта:</span>
-                        <span id="res-price">2 490 ₽</span>
-                    </div>
-                </div>
-
-                <h3 class="order-title">Быстрое оформление заказа</h3>
-                <p style="text-align: center; color: var(--gray-text); margin-bottom: 25px; font-size: 14px;">Заполните форму — мы мгновенно подтвердим заказ и передадим его в доставку</p>
-               
-                <form id="orderForm" onsubmit="sendOrder(event)">
-                    <div class="form-group">
-                        <label for="name">Ваше Имя:</label>
-                        <input type="text" id="name" placeholder="Как к вам обращаться?" required>
-                    </div>
-                   
-                    <div class="form-group">
-                        <label for="phone">Контактный телефон:</label>
-                        <input type="tel" id="phone" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="city">Ваш город:</label>
-                        <input type="text" id="city" placeholder="Например: Москва" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pvz">Укажите адрес удобного пункта выдачи (ПВЗ) Ozon:</label>
-                        <input type="text" id="pvz" placeholder="Начните вводить город, улицу, дом..." required>
-                    </div>
-
-                    <button type="submit" class="btn btn-pay">Перейти к оплате через ЮKassa</button>
-                    <div class="yookassa-logo">🔒 Безопасная оплата через ЮKassa</div>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer style="text-align: center; padding: 25px; font-size: 12px; color: #666; background-color: #f9f9f9; margin-top: 60px; border-top: 1px solid var(--green-light);">
-        <p>© 2026 WiZeL. Все права защищены. Информация на сайте носит ознакомительный характер и не является публичной офертой.</p>
+        <div class="container hero-box">
+            <div class="hero-text">
+                <h1>Умная японская система для кошачьего туалета</h1>
+                <p>Идеальная чистота, абсолютное отсутствие запаха и супер-экономичный расход. Рассчитайте individual'ный набор для вашего питомца прямо сейчас!</p>
+                <a href="#calculator" class="btn">Рассчитать расход</a>
+            </div>
+            <div class="hero-img">
+                <img src="https://unsplash.com" alt="Счастливый кот WiZeL">
+            </div>
+        </div>
+    </section>
+    <section id="calculator" class="calc-section">
+        <div class="container">
+            <h2 class="section-title">Индивидуальный калькулятор WiZeL</h2>
+            <p class="section-subtitle">Заполните параметры, чтобы узнать точный расход премиум-пелёнок и гранул Unicharm</p>
+            <div class="calc-wrapper">
+                <div class="grid-inputs">
+                    <div class="form-group">
+                        <label for="cats">Количество котиков в доме:</label>
+                        <select id="cats" onchange="calculateTariff()">
+                            <option value="1">1 котик</option>
+                            <option value="2">2 котика</option>
+                            <option value="3">3 котика и более</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Вес питомца (средний):</label>
+                        <select id="weight" onchange="calculateTariff()">
+                            <option value="light">До 4 кг</option>
+                            <option value="normal">От 4 до 8 кг</option>
+                            <option value="heavy">Более 8 кг</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="results-box">
+                    <div class="result-row">
+                        <span>Рекомендованный объем гранул (на 2 мес):</span>
+                        <span id="res-granules">2 литра</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Расход сменных пелёнок:</span>
+                        <span id="res-pelents">1 пелёнка в неделю</span>
+                    </div>
+                    <div class="result-row total">
+                        <span>Итоговая стоимость комплекта:</span>
+                        <span id="res-price">2 490 ₽</span>
+                    </div>
+                </div>
+                <h3 class="order-title">Быстрое оформление заказа</h3>
+                <p style="text-align: center; color: var(--gray-text); margin-bottom: 25px; font-size: 14px;">Заполните форму — мы мгновенно подтвердим заказ и передадим его в доставку</p>
+                <form id="orderForm" onsubmit="sendOrder(event)">
+                    <div class="form-group">
+                        <label for="name">Ваше Имя:</label>
+                        <input type="text" id="name" placeholder="Как к вам обращаться?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Контактный телефон:</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Ваш город:</label>
+                        <input type="text" id="city" placeholder="Например: Москва" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pvz">Укажите адрес удобного пункта выдачи (ПВЗ) Ozon:</label>
+                        <input type="text" id="pvz" placeholder="Начните вводить город, улицу, дом..." required>
+                    </div>
+                    <button type="submit" class="btn btn-pay">Перейти к оплате через ЮKassa</button>
+                    <div class="yookassa-logo">🔒 Безопасная оплата через ЮKassa</div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer style="text-align: center; padding: 25px; font-size: 12px; color: #666; background-color: #f9f9f9; margin-top: 60px; border-top: 1px solid var(--green-light);">
+        <p>© 2026 WiZeL. Все права защищены. Информация на сайте носит ознакомительный характер и не является публичной офертой.</p>
+        <p style="margin-top: 15px;"><a href="#" style="color: var(--green-dark); text-decoration: underline;">Политика конфиденциальности в отношении обработки персональных данных</a></p>
+    </footer>
+    <script>
+        function calculateTariff() {
+            const cats = document.getElementById('cats').value;
+            const weight = document.getElementById('weight').value;
+            let granules = "2 литра";
+            let pelents = "1 пелёнка в неделю";
+            let price = "2 490 ₽";
+            if (cats === "1" && weight === "heavy") {
+                pelents = "2 пелёнки в неделю";
+                price = "2 890 ₽";
+            } else if (cats === "2") {
+                granules = "4 литра";
+                pelents = "2 пелёнки в неделю";
+                price = "4 190 ₽";
+            } else if (cats === "3") {
+                granules = "6 литров";
+                pelents = "3 пелёнки в неделю";
+                price = "5 890 ₽";
+            }
+            document.getElementById('res-granules').innerText = granules;
+            document.getElementById('res-pelents').innerText = pelents;
+            document.getElementById('res-price').innerText = price;
+        }
+        function sendOrder(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const city = document.getElementById('city').value;
+            const pvz = document.getElementById('pvz').value;
+            const price = document.getElementById('res-price').innerText;
+            const message = `🚨 *Новый заказ WiZeL!*\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n🏙 Город: ${city}\n📦 ПВЗ Ozon: ${pvz}\n💰 Сумма: ${price}`;
+            const botToken = '8068712316:AAE6H2mKovbA6lP-NqgD_wOExR3H9YvWz3A';
+            const chatId = '5219985392';
+            const url = `https://telegram.org{botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+            fetch(url)
+                .then(response => {
+                    if(response.ok) {
+                        alert('Расчёт успешно произведен! Сейчас вас перенаправит на безопасную страницу оплаты ЮKassa.');
+                        window.location.href = 'https://yookassa.ru';
+                    } else {
+                        alert('Ошибка сети. Попробуйте еще раз.');
+                    }
+                })
+                .catch(error => {
+                    alert('Произошла ошибка при отправке заказа.');
+                });
+        }
+        const phoneInput = document.getElementById('phone');
+        IMask(phoneInput, {
+            mask: '+7 (000) 000-00-00',
+            lazy: false
+        });
+        $("#pvz").suggestions({
+            token: "417df8e622b37fe5fa7cb0997e082da26815ec69",
+            type: "ADDRESS"
+        });
+    </script>
+</body>
+</html>
