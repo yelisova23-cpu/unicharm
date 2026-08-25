@@ -1,799 +1,160 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <script>
-    $("#pvz").suggestions({
-        token: "417df8e622b37fe5fa7cb0997e082da26815ec69",
-        type: "ADDRESS"
-    });
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unicharm — Японская система для кошачьего туалета без запаха</title>
-<style>
-  :root {
-    --green-dark: #1f6b3a;
-    --green-main: #2e9e4f;
-    --green-light: #eaf7ee;
-    --green-accent: #4cbf6b;
-    --white: #ffffff;
-    --gray-text: #5a6a63;
-    --dark-text: #1c2b22;
-    --shadow: 0 10px 30px rgba(31, 107, 58, 0.12);
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--white);
-    color: var(--dark-text);
-    line-height: 1.6;
-  }
-
-  a { text-decoration: none; color: inherit; }
-  img { max-width: 100%; display: block; }
-
-  /* ===== HEADER ===== */
-  header {
-    background: var(--white);
-    padding: 18px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-  }
-
-  .logo {
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--green-dark);
-    letter-spacing: -0.5px;
-  }
-
-  .logo span { color: var(--green-accent); }
-
-  nav ul {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-  }
-
-  nav a {
-    font-weight: 600;
-    color: var(--dark-text);
-    transition: color 0.2s;
-  }
-
-  nav a:hover { color: var(--green-main); }
-
-  .header-cta {
-    background: var(--green-main);
-    color: var(--white);
-    padding: 10px 22px;
-    border-radius: 30px;
-    font-weight: 700;
-    transition: background 0.2s, transform 0.2s;
-  }
-
-  .header-cta:hover {
-    background: var(--green-dark);
-    transform: translateY(-2px);
-  }
-
-  /* ===== HERO ===== */
-  .hero {
-    background: linear-gradient(135deg, var(--green-light) 0%, #ffffff 100%);
-    padding: 70px 5% 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-
-  .hero-text { flex: 1; min-width: 300px; }
-
-  .hero-text h1 {
-    font-size: 42px;
-    line-height: 1.2;
-    color: var(--green-dark);
-    margin-bottom: 20px;
-    font-weight: 800;
-  }
-
-  .hero-text h1 span { color: var(--green-accent); }
-
-  .hero-text p {
-    font-size: 18px;
-    color: var(--gray-text);
-    margin-bottom: 30px;
-    max-width: 520px;
-  }
-
-  .btn-main {
-    display: inline-block;
-    background: var(--green-main);
-    color: var(--white);
-    padding: 16px 36px;
-    border-radius: 40px;
-    font-weight: 700;
-    font-size: 17px;
-    box-shadow: 0 8px 20px rgba(46, 158, 79, 0.35);
-    transition: all 0.25s;
-  }
-
-  .btn-main:hover {
-    background: var(--green-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(31, 107, 58, 0.4);
-  }
-
-  .hero-image {
-    flex: 1;
-    min-width: 280px;
-    text-align: center;
-  }
-
-  .hero-image img {
-    border-radius: 24px;
-    box-shadow: var(--shadow);
-    max-height: 400px;
-    margin: 0 auto;
-  }
-
-  /* ===== DELIVERY BANNER ===== */
-  .delivery-banner {
-    background: linear-gradient(90deg, var(--green-dark), var(--green-main));
-    color: var(--white);
-    text-align: center;
-    padding: 22px 5%;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: 0.3px;
-  }
-
-  .delivery-banner span {
-    background: var(--white);
-    color: var(--green-dark);
-    padding: 4px 14px;
-    border-radius: 20px;
-    margin-left: 8px;
-    font-size: 16px;
-  }
-
-  /* ===== TECHNOLOGY SECTION ===== */
-  .technology {
-    padding: 80px 5%;
-    background: var(--white);
-  }
-
-  .section-title {
-    text-align: center;
-    font-size: 34px;
-    color: var(--green-dark);
-    font-weight: 800;
-    margin-bottom: 15px;
-  }
-
-  .section-subtitle {
-    text-align: center;
-    color: var(--gray-text);
-    max-width: 650px;
-    margin: 0 auto 50px;
-    font-size: 17px;
-  }
-
-  .tech-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .tech-card {
-    background: var(--green-light);
-    border-radius: 20px;
-    padding: 35px;
-    border: 1px solid rgba(46, 158, 79, 0.15);
-    transition: transform 0.25s;
-  }
-
-  .tech-card:hover { transform: translateY(-5px); }
-
-  .tech-card .icon {
-    font-size: 40px;
-    margin-bottom: 15px;
-  }
-
-  .tech-card h3 {
-    color: var(--green-dark);
-    font-size: 21px;
-    margin-bottom: 12px;
-  }
-
-  .tech-card p {
-    color: var(--gray-text);
-    font-size: 15.5px;
-  }
-
-  .tech-schedule {
-    max-width: 1000px;
-    margin: 50px auto 0;
-    display: flex;
-    gap: 25px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .schedule-item {
-    background: var(--white);
-    border: 2px solid var(--green-main);
-    border-radius: 16px;
-    padding: 22px 30px;
-    text-align: center;
-    min-width: 260px;
-    flex: 1;
-  }
-
-  .schedule-item .period {
-    font-size: 30px;
-    font-weight: 800;
-    color: var(--green-main);
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  .schedule-item .desc {
-    color: var(--gray-text);
-    font-size: 15px;
-  }
-
-  /* ===== PRODUCTS ===== */
-  .products {
-    padding: 80px 5%;
-    background: var(--green-light);
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 28px;
-    max-width: 1300px;
-    margin: 0 auto;
-  }
-
-  .product-card {
-    background: var(--white);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: transform 0.25s, box-shadow 0.25s;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 40px rgba(31, 107, 58, 0.2);
-  }
-
-  .product-card .img-wrap {
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    background: #f4faf6;
-  }
-
-  .product-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .product-info {
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .product-badge {
-    display: inline-block;
-    background: var(--green-accent);
-    color: var(--white);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-    width: fit-content;
-  }
-
-  .product-info h3 {
-    font-size: 19px;
-    color: var(--dark-text);
-    margin-bottom: 8px;
-  }
-
-  .product-info p {
-    font-size: 14.5px;
-    color: var(--gray-text);
-    margin-bottom: 18px;
-    flex: 1;
-  }
-
-  .product-price {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--green-dark);
-    margin-bottom: 14px;
-  }
-
-  .btn-add {
-    background: var(--green-main);
-    color: var(--white);
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    transition: background 0.2s;
-    width: 100%;
-  }
-
-  .btn-add:hover { background: var(--green-dark); }
-
-  /* ===== ORDER FORM ===== */
-  .order-section {
-    padding: 80px 5%;
-    background: var(--white);
-  }
-
-  .order-wrap {
-    max-width: 600px;
-    margin: 0 auto;
-    background: var(--green-light);
-    border-radius: 24px;
-    padding: 45px 40px;
-    box-shadow: var(--shadow);
-  }
-
-  .order-wrap h2 {
-    text-align: center;
-    color: var(--green-dark);
-    font-size: 28px;
-    margin-bottom: 8px;
-  }
-
-  .order-wrap .order-sub {
-    text-align: center;
-    color: var(--gray-text);
-    margin-bottom: 30px;
-    font-size: 15px;
-  }
-
-  .form-group { margin-bottom: 18px; }
-
-  .form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: var(--dark-text);
-    font-size: 14.5px;
-  }
-
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 13px 16px;
-    border-radius: 12px;
-    border: 1.5px solid #d5e8da;
-    font-size: 15px;
-    background: var(--white);
-    transition: border 0.2s;
-  }
-
-  .form-group input:focus,
-  .form-group select:focus {
-    outline: none;
-    border-color: var(--green-main);
-  }
-
-  .btn-pay {
-    width: 100%;
-    background: var(--green-dark);
-    color: var(--white);
-    padding: 17px;
-    border: none;
-    border-radius: 14px;
-    font-size: 17px;
-    font-weight: 800;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background 0.2s, transform 0.2s;
-    box-shadow: 0 10px 25px rgba(31, 107, 58, 0.35);
-  }
-
-  .btn-pay:hover {
-    background: var(--green-main);
-    transform: translateY(-2px);
-  }
-
-  .yookassa-logo {
-    text-align: center;
-    margin-top: 14px;
-    font-size: 13px;
-    color: var(--gray-text);
-  }
-
-  /* ===== FOOTER ===== */
-  footer {
-    background: var(--green-dark);
-    color: var(--white);
-    padding: 60px 5% 30px;
-  }
-
-  .footer-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .footer-content h2 {
-    font-size: 26px;
-    margin-bottom: 12px;
-  }
-
-  .footer-content p {
-    color: rgba(255,255,255,0.85);
-    max-width: 550px;
-    margin: 0 auto 25px;
-    font-size: 16px;
-  }
-
-  .btn-support {
-    display: inline-block;
-    background: var(--white);
-    color: var(--green-dark);
-    padding: 14px 34px;
-    border-radius: 30px;
-    font-weight: 800;
-    font-size: 16px;
-    transition: all 0.2s;
-  }
-
-  .btn-support:hover {
-    background: var(--green-accent);
-    color: var(--white);
-    transform: translateY(-2px);
-  }
-
-  .footer-bottom {
-    margin-top: 50px;
-    text-align: center;
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    border-top: 1px solid rgba(255,255,255,0.15);
-    padding-top: 20px;
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 768px) {
-    nav { display: none; }
-    .hero-text h1 { font-size: 32px; }
-    .tech-grid { grid-template-columns: 1fr; }
-    .order-wrap { padding: 30px 22px; }
-  }
-<div class="product-card">
-  <div class="product-card__image-wrapper">
-    <img src="maxi-start-3x4.jpeg" alt="Большой стартовый комплект Макси-Старт" class="product-card__image">
-  </div>
-  <div class="product-card__body">
-    <h3 class="product-card__title">Комплект Макси-Старт</h3>
-    <p class="product-card__description">Лоток + Наполнитель + Пелёнки — большой набор для комфортной чистоты</p>
-    <button class="product-card__button">Купить</button>
-  </div>
-</div>
-
-<style>
-.product-card {
-  width: 300px;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #ffffff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  font-family: Arial, sans-serif;
-}
-
-.product-card__image-wrapper {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  background: #f0f4f2;
-}
-
-.product-card__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
-.product-card__body {
-  padding: 16px;
-  text-align: center;
-}
-
-.product-card__title {
-  margin: 0 0 8px;
-  font-size: 18px;
-  color: #1f3d2b;
-}
-
-.product-card__description {
-  margin: 0 0 16px;
-  font-size: 14px;
-  color: #55665c;
-}
-
-.product-card__button {
-  width: 100%;
-  padding: 10px 0;
-  background: #2f7a4f;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.product-card__button:hover {
-  background: #256640;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiZeL - Японская система для кошачьего туалета</title>
+    <!-- Подключаем стили и скрипты умных подсказок DaData -->
+    <link href="https://jsdelivr.net" rel="stylesheet" />
+    <script src="https://cloudflare.com"></script>
+    <script src="https://jsdelivr.net"></script>
+    <!-- Подключаем библиотеку маски телефона -->
+    <script src="https://unpkg.com"></script>
+    <style>
+        :root {
+            --green-dark: #1f6b3a;
+            --green-main: #2e9e4f;
+            --green-light: #e6f2ea;
+            --green-accent: #4cb66b;
+            --white: #ffffff;
+            --gray-text: #5a6a63;
+            --dark-text: #1c2b22;
+            --shadow: 0 10px 30px rgba(31, 107, 58, 0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; border-bottom: 1px solid var(--green-light); position: sticky; top: 0; z-index: 100; }
+        .header-box { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 28px; font-weight: 800; color: var(--green-dark); letter-spacing: 1px; }
+        .logo span { color: var(--green-accent); }
+        .hero { padding: 60px 0; background: linear-gradient(135deg, var(--white) 0%, var(--green-light) 100%); }
+        .hero-box { display: flex; align-items: center; gap: 40px; }
+        .hero-text { flex: 1; }
+        .hero-text h1 { font-size: 42px; font-weight: 800; color: var(--dark-text); margin-bottom: 20px; line-height: 1.2; }
+        .hero-text p { font-size: 18px; color: var(--gray-text); margin-bottom: 30px; }
+        .hero-img { flex: 1; display: flex; justify-content: center; }
+        .hero-img img { border-radius: 20px; box-shadow: var(--shadow); max-height: 450px; object-fit: cover; }
+        .btn { display: inline-block; background: var(--green-dark); color: var(--white); padding: 15px 35px; border-radius: 30px; font-weight: 700; font-size: 16px; transition: all 0.3s; border: none; cursor: pointer; text-align: center; }
+        .btn:hover { background: var(--green-main); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(31, 107, 58, 0.3); }
+        .calc-section { padding: 80px 0; background: var(--white); }
+        .section-title { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 15px; color: var(--green-dark); }
+        .section-subtitle { text-align: center; color: var(--gray-text); margin-bottom: 50px; font-size: 16px; }
+        .calc-wrapper { max-width: 800px; margin: 0 auto; background: var(--white); border-radius: 24px; padding: 40px; box-shadow: var(--shadow); border: 1px solid var(--green-light); }
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
+        @media (max-width: 600px) { .grid-inputs { grid-template-columns: 1fr; } .hero-box { flex-direction: column; text-align: center; } }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 10px; color: var(--dark-text); font-size: 15px; }
+        .form-group input, .form-group select { width: 100%; padding: 14px; border: 2px solid #e0e6e3; border-radius: 12px; font-size: 16px; color: var(--dark-text); transition: all 0.3s; background: #fcfdfe; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--green-main); outline: none; background: var(--white); box-shadow: 0 0 0 4px rgba(46, 158, 79, 0.1); }
+        .results-box { background: var(--green-light); border-radius: 16px; padding: 25px; margin-bottom: 35px; border: 1px dashed var(--green-accent); }
+        .result-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 16px; color: var(--gray-text); }
+        .result-row:last-child { margin-bottom: 0; padding-top: 12px; border-top: 1px solid rgba(31, 107, 58, 0.1); }
+        .result-row.total { font-size: 20px; font-weight: 800; color: var(--green-dark); }
+        .order-title { font-size: 24px; font-weight: 800; margin: 40px 0 20px; color: var(--green-dark); border-top: 2px solid var(--green-light); padding-top: 30px; text-align: center; }
+        .btn-pay { width: 100%; margin-top: 10px; }
+        .yookassa-logo { text-align: center; margin-top: 15px; font-size: 13px; color: var(--gray-text); display: flex; align-items: center; justify-content: center; gap: 5px; }
+    </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
-<header>
-  <div class="logo"><img src="logo1.jpeg" alt="Unicharm" style="height: 50px;"></div>
-  <nav>
-    <ul>
-      <li><a href="#technology">Технология</a></li>
-      <li><a href="#products">Комплекты</a></li>
-      <li><a href="#order">Заказ</a></li>
-    </ul>
-  </nav>
-  <a href="#order" class="header-cta">Заказать</a>
-</header>
+    <header>
+        <div class="container header-box">
+            <div class="logo">WiZeL<span>'</span></div>
+            <a href="#calculator" class="btn" style="padding: 10px 25px; font-size: 14px;">Калькулятор</a>
+        </div>
+    </header>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="hero-text">
-    <h1>Японская система против запаха.<br><span>До 30 дней</span> без замены наполнителя.</h1>
-    <p>Unicharm — двухъярусная технология с цеолитовыми гранулами, которая держит лоток свежим в разы дольше обычного наполнителя.</p>
-    <a href="#order" class="btn-main">Выбрать комплект</a>
-  </div>
-  <div class="hero-image">
-    <img src="mini-start.jpg" alt="Unicharm — комплект Мини-Старт">
-  </div>
-</section>
+    <section class="hero">
+        <div class="container hero-box">
+            <div class="hero-text">
+                <h1>Умная японская система для кошачьего туалета</h1>
+                <p>Идеальная чистота, абсолютное отсутствие запаха и супер-экономичный расход. Рассчитайте индивидуальный набор для вашего питомца прямо сейчас!</p>
+                <a href="#calculator" class="btn">Рассчитать расход</a>
+            </div>
+            <div class="hero-img">
+                <img src="https://unsplash.com" alt="Счастливый кот WiZeL">
+            </div>
+        </div>
+    </section>
 
-<!-- ===== DELIVERY BANNER ===== -->
-<div class="delivery-banner">
-  🚚 Доставка в любой ПВЗ Ozon — <span>БЕСПЛАТНО!</span>
-</div>
+    <section id="calculator" class="calc-section">
+        <div class="container">
+            <h2 class="section-title">Индивидуальный калькулятор WiZeL</h2>
+            <p class="section-subtitle">Заполните параметры, чтобы узнать точный расход премиум-пелёнок и гранул Unicharm</p>
+           
+            <div class="calc-wrapper">
+                <div class="grid-inputs">
+                    <div class="form-group">
+                        <label for="cats">Количество котиков в доме:</label>
+                        <select id="cats" onchange="calculateTariff()">
+                            <option value="1">1 котик</option>
+                            <option value="2">2 котика</option>
+                            <option value="3">3 котика и более</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Вес питомца (средний):</label>
+                        <select id="weight" onchange="calculateTariff()">
+                            <option value="light">До 4 кг</option>
+                            <option value="normal">От 4 до 8 кг</option>
+                            <option value="heavy">Более 8 кг</option>
+                        </select>
+                    </div>
+                </div>
 
-<!-- ===== TECHNOLOGY ===== -->
-<section class="technology" id="technology">
-  <h2 class="section-title">Как работает двухъярусная система</h2>
-  <p class="section-subtitle">В отличие от обычного наполнителя, который впитывает всё сам и быстро начинает пахнуть, Unicharm разделяет функции между двумя слоями.</p>
+                <div class="results-box">
+                    <div class="result-row">
+                        <span>Рекомендованный объем гранул (на 2 мес):</span>
+                        <span id="res-granules">2 литра</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Расход сменных пелёнок:</span>
+                        <span id="res-pelents">1 пелёнка в неделю</span>
+                    </div>
+                    <div class="result-row total">
+                        <span>Итоговая стоимость комплекта:</span>
+                        <span id="res-price">2 490 ₽</span>
+                    </div>
+                </div>
 
-  <div class="tech-grid">
-    <div class="tech-card">
-      <div class="icon">🟢</div>
-      <h3>Верхний ярус — цеолитовые гранулы</h3>
-      <p>Гранулы <strong>не впитывают влагу</strong> — они пропускают мочу вниз, к пелёнке, и остаются полностью сухими. При этом именно верхний слой блокирует запах от твёрдых отходов, не давая ему выйти наружу.</p>
-    </div>
-    <div class="tech-card">
-      <div class="icon">🧻</div>
-      <h3>Нижний ярус — дезодорирующая пелёнка</h3>
-      <p>Вся жидкость проходит сквозь гранулы и впитывается пелёнкой. Именно она нейтрализует запах мочи на молекулярном уровне и удерживает влагу.</p>
-    </div>
-  </div>
+                <h3 class="order-title">Быстрое оформление заказа</h3>
+                <p style="text-align: center; color: var(--gray-text); margin-bottom: 25px; font-size: 14px;">Заполните форму — мы мгновенно подтвердим заказ и передадим его в доставку</p>
+               
+                <form id="orderForm" onsubmit="sendOrder(event)">
+                    <div class="form-group">
+                        <label for="name">Ваше Имя:</label>
+                        <input type="text" id="name" placeholder="Как к вам обращаться?" required>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="phone">Контактный телефон:</label>
+                        <input type="tel" id="phone" required>
+                    </div>
 
-  <div class="tech-schedule">
-    <div class="schedule-item">
-      <span class="period">1 раз в месяц</span>
-      <div class="desc">Замена цеолитовых гранул (верхний ярус)</div>
-    </div>
-    <div class="schedule-item">
-      <span class="period">1 раз в неделю</span>
-      <div class="desc">Замена дезодорирующей пелёнки (нижний ярус)</div>
-    </div>
-  </div>
-</section>
+                    <div class="form-group">
+                        <label for="city">Ваш город:</label>
+                        <input type="text" id="city" placeholder="Например: Москва" required>
+                    </div>
 
-<!-- ===== PRODUCTS ===== -->
-<section class="products" id="products">
-  <h2 class="section-title">Комплекты и расходники</h2>
-  <p class="section-subtitle">Выбери готовый комплект с лотком или закажи только расходники, если лоток уже есть.</p>
+                    <div class="form-group">
+                        <label for="pvz">Укажите адрес удобного пункта выдачи (ПВЗ) Ozon:</label>
+                        <input type="text" id="pvz" placeholder="Начните вводить город, улицу, дом..." required>
+                    </div>
 
-  <div class="products-grid">
+                    <button type="submit" class="btn btn-pay">Перейти к оплате через ЮKassa</button>
+                    <div class="yookassa-logo">🔒 Безопасная оплата через ЮKassa</div>
+                </form>
+            </div>
+        </div>
+    </section>
 
-    <div class="product-card">
-      <div class="img-wrap"><img src="mini-start.jpg" alt="Комплект Мини-Старт"></div>
-      <div class="product-info">
-        <span class="product-badge">Комплект с лотком</span>
-        <h3>Мини-Старт</h3>
-        <p>Лоток + наполнитель (гранулы) 2 л + пелёнки 4 шт. Идеально для первого знакомства с системой.</p>
-        <div class="product-price">от 3 990 ₽</div>
-        <button class="btn-add" disabled style="background: #cccccc; cursor: not-allowed;">Скоро в продаже</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="img-wrap"><img src="maxi-start.jpeg" alt="Комплект Макси-Старт"></div>
-      <div class="product-info">
-        <span class="product-badge">Комплект с лотком</span>
-        <h3>Макси-Старт</h3>
-        <p>Лоток + наполнитель (гранулы) 4 л + пелёнки 4 шт. Для дома с несколькими кошками.</p>
-        <div class="product-price">от 4 790 ₽</div>
-        <button class="btn-add">В корзину</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="img-wrap"><img src="rashod-2-4.jpg" alt="Расходники без лотка 2л + 4 пелёнки"></div>
-      <div class="product-info">
-        <span class="product-badge">Без лотка</span>
-        <h3>Набор расходников (2 л + 4 шт.)</h3>
-        <p>Наполнитель (гранулы) 2 л + пелёнки 4 шт. Для тех, у кого уже есть лоток Unicharm.</p>
-        <div class="product-price">от 2 290 ₽</div>
-        <button class="btn-add" disabled style="background: #cccccc; cursor: not-allowed;">Скоро в продаже</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="img-wrap"><img src="litter44.png" alt="Расходники без лотка 4л + 4 пелёнки"></div>
-      <div class="product-info">
-        <span class="product-badge">Без лотка</span>
-        <h3>Набор расходников (4 л + 4 шт.)</h3>
-        <p>Наполнитель (гранулы) 4 л + пелёнки 4 шт. Увеличенный объём для активного использования.</p>
-        <div class="product-price">от 4 090 ₽</div>
-        <button class="btn-add">В корзину</button>
-      </div>
-    </div>
-
-   <div class="product-card">
-    <div class="img-wrap"><img src="litter-2l.jpeg" alt="Наполнитель 2 литра"></div>
-    <div class="product-info">
-        <span class="product-badge">Расходник</span>
-        <h3>Наполнитель (гранулы) 2 л</h3>
-        <p>Оригинальные цеолитовые гранулы для двухъярусного лотка. Не впитывают влагу, намертво блокируют запах. Хватает на 1 месяц.</p>
-        <div class="product-price">от 1 290 ₽</div>
-        <button class="btn-add" disabled style="background: #cccccc; cursor: not-allowed;">Скоро в продаже</button>
-    </div>
-  </div>
-   
- <div class="product-card">
-      <div class="img-wrap"><img src="litter-4.jpeg" alt="Наполнитель 4 литра"></div>
-      <div class="product-info">
-        <span class="product-badge">Расходник</span>
-        <h3>Наполнитель (гранулы) 4 л</h3>
-        <p>Цеолитовые гранулы верхнего яруса. Не впитывают влагу, блокируют запах твёрдых отходов. Хватает до 2 месяцев.</p>
-        <div class="product-price">от 2 500 ₽</div>
-        <button class="btn-add">В корзину</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="img-wrap"><img src="pads10.jpeg" alt="Пелёнки 10 штук"></div>
-      <div class="product-info">
-        <span class="product-badge">Расходник</span>
-        <h3>Пелёнки, 10 шт.</h3>
-        <p>Дезодорирующие пелёнки нижнего яруса. Хватает примерно на 2,5 месяца при замене раз в неделю.</p>
-        <div class="product-price">от 990 ₽</div>
-        <button class="btn-add">В корзину</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="img-wrap"><img src="pads4.jpeg" alt="Пелёнки 4 штуки" style="transform: scale(1.15); object-fit: cover;"></div>
-      <div class="product-info">
-        <span class="product-badge">Расходник</span>
-        <h3>Пелёнки, 4 шт.</h3>
-        <p>Дезодорирующие пелёнки нижнего яруса. Хватает примерно на месяц при замене раз в неделю.</p>
-        <div class="product-price">от 490 ₽</div>
-        <button class="btn-add">В корзину</button>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ===== ORDER FORM ===== -->
-<section class="order-section" id="order">
-  <div class="order-wrap">
-    <h2>Оформление заказа</h2>
-    <p class="order-sub">Заполните форму — мы подтвердим заказ и передадим его в доставку через Ozon.</p>
-
-    <form id="orderForm">
-      <div class="form-group">
-        <label for="name">Имя</label>
-        <input type="text" id="name" name="name" placeholder="Как к вам обращаться" required>
-      </div>
-
-      <div class="form-group">
-        <label for="phone">Телефон</label>
-        <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
-      </div>
-
-      <div class="form-group">
-        <label for="city">Город</label>
-        <input type="text" id="city" name="city" placeholder="Ваш город" required>
-      </div>
-
-      <div class="form-group">
-    <label for="pvz">Укажите адрес удобного пункта выдачи (ПВЗ) Ozon:</label>
-    <input type="text" id="pvz" name="pvz" placeholder="Введите город, улицу и дом удобного вам пункта..." required>
-   <a href="https://ozon.ru/address_map/map/common" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background-color: #005BFF; color: white; padding: 12px 18px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: bold; width: 100%; box-sizing: border-box; text-align: center; margin-top: 10px; transition: background 0.2s;">🗺️ Открыть интерактивную карту ПВЗ Ozon</a>
-
-      <button type="submit" class="btn-pay">Перейти к оплате через ЮKassa</button>
-      <div class="yookassa-logo">🔒 Безопасная оплата через ЮKassa</div>
-    </form>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="footer-content">
-    <h2>Мы всегда на связи 💬</h2>
-    <p>Возникли вопросы по японской системе или выбору комплекта? Наша служба заботы всегда на связи!</p>
-    <a href="https://t.me" target="_blank" class="btn-support">Написать в поддержку</a>
-
-    <div class="footer-bottom">
-      © 2024 Unicharm. Все права защищены.
-    </div>
-  </div>
-</footer>
-
-<script>
-  document.getElementById('orderForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Здесь должна быть интеграция с ЮKassa API
-    alert('Заявка принята! Переход к оплате через ЮKassa...');
-    // window.location.href = 'ССЫЛКА_НА_ЮKASSA_ОПЛАТУ';
-  });
-</script>
-
-</body>
- <script>
-    $("#pvz").suggestions({
-        token: "417df8e622b37fe5fa7cb0997e082da26815ec69",
-        type: "ADDRESS"
-    });
-</script> 
-<style>
-.product-card:has(button[disabled]) {
-    order: 999;
-}
-</style>
-  <script>
-    $("#pvz").suggestions({
-        token: "417df8e622b37fe5fa7cb0997e082da26815ec69",
-        type: "ADDRESS"
-    });
-</script>
-</html>
+    <footer style="text-align: center; padding: 25px; font-size: 12px; color: #666; background-color: #f9f9f9; margin-top: 60px; border-top: 1px solid var(--green-light);">
+        <p>© 2026 WiZeL. Все права защищены. Информация на сайте носит ознакомительный характер и не является публичной офертой.</p>
