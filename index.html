@@ -740,15 +740,17 @@
       </div>
 
       <div class="form-group">
-        <label for="pvz">Выбор ПВЗ Ozon</label>
-        <select id="pvz" name="pvz" required>
-          <option value="">Выберите ближайший ПВЗ</option>
-          <option value="pvz1">ПВЗ №1 — ул. Центральная, 10</option>
-          <option value="pvz2">ПВЗ №2 — пр. Мира, 25</option>
-          <option value="pvz3">ПВЗ №3 — ул. Садовая, 4</option>
-          <option value="pvz4">ПВЗ №4 — ул. Ленина, 88</option>
-        </select>
-      </div>
+    <label for="pickup-point">📦 Выберите удобный пункт выдачи ПВЗ OZON по всей России:</label>
+    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+        <input type="text" id="pickup-point" readonly placeholder="Нажмите на кнопку справа, чтобы выбрать ПВЗ на карте..." style="flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+        <button type="button" id="open-map-btn" style="padding: 10px 20px; background-color: #005bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">🗺 Открыть карту ПВЗ Ozon</button>
+    </div>
+   
+    <!-- Контейнер для интерактивной карты Ozon -->
+    <div id="map-container" style="display: none; width: 100%; height: 400px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; overflow: hidden;">
+        <div id="yandex-map" style="width: 100%; height: 100%;"></div>
+    </div>
+</div>
 
       <button type="submit" class="btn-pay">Перейти к оплате через ЮKassa</button>
       <div class="yookassa-logo">🔒 Безопасная оплата через ЮKassa</div>
@@ -777,7 +779,66 @@
     // window.location.href = 'ССЫЛКА_НА_ЮKASSA_ОПЛАТУ';
   });
 </script>
+<!-- Подключаем бесплатное API Яндекс.Карт -->
+<script src="https://yandex.ru" type="text/javascript"></script>
+<script>
+    let myMap;
+    const mapBtn = document.getElementById('open-map-btn');
+    const mapContainer = document.getElementById('map-container');
+    const addressInput = document.getElementById('pickup-point');
 
+    mapBtn.addEventListener('click', function() {
+        if (mapContainer.style.display === 'none') {
+            mapContainer.style.display = 'block';
+            if (!myMap) {
+                ymaps.ready(initMap);
+            }
+            mapBtn.textContent = '❌ Закрыть карту';
+        } else {
+            mapContainer.style.display = 'none';
+            mapBtn.textContent = '🗺 Открыть карту ПВЗ Ozon';
+        }
+    });
+
+    function initMap() {
+        // Создаем карту с центром в Москве (клиент сможет легко найти свой город через строку поиска на карте)
+        myMap = new ymaps.Map("yandex-map", {
+            center: [55.76, 37.64],
+            zoom: 11,
+            controls: ['searchControl', 'zoomControl']
+        });
+
+        // Жестко настраиваем поиск: ищем ТОЛЬКО пункты выдачи заказов Ozon
+        const searchControl = myMap.controls.get('searchControl');
+        searchControl.options.set({
+            provider: 'yandex#search',
+            boundedBy: myMap.getBounds(),
+            strictBounds: false
+        });
+       
+        // Запускаем принудительный фильтр «Ozon» в текущей области карты
+        searchControl.search('Пункт выдачи заказов Ozon');
+
+        // Когда карта двигается, обновляем поиск точек Ozon в новой видимой области
+        myMap.events.add('boundschange', function () {
+            searchControl.search('Пункт выдачи заказов Ozon');
+        });
+
+        // Ловим клик пользователя по любой точке Ozon на карте
+        myMap.geoObjects.events.add('click', function (e) {
+            const target = e.get('target');
+            // Проверяем, что это объект организации (ПВЗ)
+            if (target.properties) {
+                const geoObjectMetaData = target.properties.get('metaDataProperty').GeocoderMetaData || target.properties.get('metaDataProperty').CompanyMetaData;
+                if (geoObjectMetaData) {
+                    const ozonAddress = geoObjectMetaData.address || target.properties.get('text');
+                    // Автоматически подставляем точный адрес ПВЗ Озон в форму заказа
+                    addressInput.value = `ПВЗ Ozon: ${ozonAddress}`;
+                }
+            }
+        });
+    }
+</script>
 </body>
 <style>
 .product-card:has(button[disabled]) {
